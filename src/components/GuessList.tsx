@@ -39,8 +39,8 @@ const GuessList = ({ guesses, guessIsCorrect, setGuessIsCorrect, computerMakesGu
 
                     guesses.map((guess, index) => (
                         !guessIsCorrect &&
-                        <div className='flex gap-4 items-center py-4'>
-                            <li key={index}>{guess} Is Not Correct</li>
+                        <div key={index} className='flex gap-4 items-center py-4'>
+                            <li >{guess} Is Not Correct</li>
                             <button className='border border-black rounded-xl p-2' onClick={higherGuess}>Higher</button>
                             <button className='border border-black rounded-xl p-2' onClick={handleLowerGuess}>Lower</button>
                             <button className='border border-black rounded-xl p-2' onClick={handleCorrectGuess}>Correct</button>
