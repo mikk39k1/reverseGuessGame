@@ -10,17 +10,21 @@ export default function Home() {
   const router = useRouter();
   const [guesses, setGuesses] = useState<number[]>([]);
   const [guessIsCorrect, setGuessIsCorrect] = useState<boolean>(false);
+  const [start, setStart] = useState<number>(1);
+  const [end, setEnd] = useState<number>(100);
 
 
-  const computerMakesAGuess = () => {
-    const randomGuess = Math.floor(Math.random() * 100) + 1;
-    if (!guesses.includes(randomGuess)) {
-      setGuesses([...guesses, randomGuess]);
+  const computerMakesAGuess = (newStart = start, newEnd = end) => {
+    const middle = Math.floor((newStart + newEnd) / 2);
+    if (!guesses.includes(middle)) {
+      setGuesses([...guesses, middle]);
     }
-  }
+  };
 
   const resetGame = () => {
     setGuesses([]);
+    setStart(1);
+    setEnd(100);
     setGuessIsCorrect(false);
     router.refresh();
   }
@@ -33,14 +37,17 @@ export default function Home() {
 
         <p>Think of a number between 1 and 100 - and i will guess it</p>
         
-        <button className='border border-black rounded-xl p-2 bg-blue-200' onClick={computerMakesAGuess}>Start Game</button>
+        <button className='border border-black rounded-xl p-2 bg-blue-200' onClick={() => computerMakesAGuess(start, end)}>Start Game</button>
 
         <GuessList
           guesses={guesses}
           guessIsCorrect={guessIsCorrect}
           setGuessIsCorrect={setGuessIsCorrect}
           computerMakesGuess={computerMakesAGuess}
-
+          setStart={setStart}
+          setEnd={setEnd}
+          end={end}
+          start={start}
         />
 
         {
